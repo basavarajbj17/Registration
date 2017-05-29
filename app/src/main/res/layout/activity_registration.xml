@@ -23,10 +23,38 @@
 
     <include layout="@layout/content_registration" />
 
+    <RelativeLayout
+        android:id="@+id/image_layout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/app_bar_layout"
+        android:background="@color/colorAccent">
+
+        <ImageView
+            android:id="@+id/iv_profilePicture"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_register_et"
+            android:src="@drawable/icon_profile" />
+
+        <TextView
+            android:id="@+id/tv_changePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_profilePicture"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="22dp"
+            android:text="Change Picture"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/app_bar_layout">
+        android:layout_below="@id/image_layout">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -46,16 +74,15 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context="com.assign.registration.RegistrationActivity">
 
-
                 <LinearLayout
                     android:id="@+id/first_name_layout"
                     style="@style/RegisterLayoutStyle">
 
-
                     <EditText
                         android:id="@+id/et_user_name"
                         style="@style/RegisterEtStyle"
-                        android:hint="First Name" />
+                        android:hint="First Name"
+                        android:inputType="textCapSentences" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -68,7 +95,7 @@
                         android:id="@+id/et_last_name"
                         style="@style/RegisterEtStyle"
                         android:hint="Last Name"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textCapSentences" />
                 </LinearLayout>
 
 
@@ -77,12 +104,11 @@
                     style="@style/RegisterLayoutStyle"
                     android:layout_below="@id/last_name_layout">
 
-
-                    <EditText
-                        android:id="@+id/et_gender"
+                    <AutoCompleteTextView
+                        android:id="@+id/act_gender"
                         style="@style/RegisterEtStyle"
                         android:hint="Gender"
-                        android:inputType="number"
+                        android:inputType="textCapSentences"
                         android:maxLength="10" />
                 </LinearLayout>
 
@@ -109,7 +135,7 @@
                         android:id="@+id/et_email_address"
                         style="@style/RegisterEtStyle"
                         android:hint="Email Address"
-                        android:inputType="textPassword" />
+                        android:inputType="textEmailAddress" />
                 </LinearLayout>
 
 
@@ -118,38 +144,23 @@
                     style="@style/RegisterLayoutStyle"
                     android:layout_below="@id/email_address_layout">
 
-
-                    <EditText
-                        android:id="@+id/et_job_type"
+                    <AutoCompleteTextView
+                        android:id="@+id/act_job_type"
                         style="@style/RegisterEtStyle"
                         android:hint="Job Type"
-                        android:inputType="textPassword" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/user_photo_layout"
-                    style="@style/RegisterLayoutStyle"
-                    android:layout_below="@id/job_type_layout">
-
-
-                    <EditText
-                        android:id="@+id/et_user_photo"
-                        style="@style/RegisterEtStyle"
-                        android:hint="Email Address"
-                        android:inputType="textPassword" />
+                        android:inputType="textCapSentences" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/address_layout"
                     style="@style/RegisterLayoutStyle"
-                    android:layout_below="@id/user_photo_layout">
-
+                    android:layout_below="@id/job_type_layout">
 
                     <EditText
                         android:id="@+id/et_address"
                         style="@style/RegisterEtStyle"
                         android:hint="Address"
-                        android:inputType="textPassword" />
+                        android:inputType="textCapSentences" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -157,11 +168,11 @@
                     style="@style/RegisterLayoutStyle"
                     android:layout_below="@id/address_layout">
 
-                    <EditText
-                        android:id="@+id/et_qualification"
+                    <AutoCompleteTextView
+                        android:id="@+id/act_qualification"
                         style="@style/RegisterEtStyle"
                         android:hint="Qualification"
-                        android:inputType="textPassword" />
+                        android:inputType="textCapSentences" />
                 </LinearLayout>
 
                 <android.support.v7.widget.AppCompatButton
@@ -171,7 +182,6 @@
                     android:layout_marginBottom="@dimen/spacing_medium"
                     android:layout_marginTop="@dimen/spacing_small"
                     android:text="@string/continue_str" />
-
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>

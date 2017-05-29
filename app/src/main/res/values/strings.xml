@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="logo">Logo</string>
     <string name="continue_str">Continue</string>
+    <string name="camera_permission">Please provide permission for camera</string>
+    <string name="storagepermission">Please provide permission for storage</string>
 </resources>
