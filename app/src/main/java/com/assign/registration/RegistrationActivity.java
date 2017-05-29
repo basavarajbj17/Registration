@@ -177,7 +177,10 @@ public class RegistrationActivity extends BaseActivity {
             call.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    showToast("Updated Successfully");
+                    Log.e(TAG, String.valueOf(response.code()));
+                    if (response.code() == 200) {
+                        showToast("Updated Successfully");
+                    }
                 }
 
                 @Override
