@@ -1,0 +1,36 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="space_small">8dp</dimen>
+    <dimen name="header_size">24sp</dimen>
+    <dimen name="space_xsmall">4dp</dimen>
+    <dimen name="inner_circle">250dp</dimen>
+    <dimen name="middle_circle">300dp</dimen>
+    <dimen name="outer_circle">350dp</dimen>
+    <dimen name="dimen_timer_circle">220dp</dimen>
+    <dimen name="tab_indicator_height">10dp</dimen>
+    <dimen name="header_height">100dp</dimen>
+    <!-- padding and margins -->
+    <dimen name="spacing_xsmall">2dp</dimen>
+    <dimen name="spacing_small">4dp</dimen>
+    <dimen name="spacing_medium">8dp</dimen>
+    <dimen name="spacing_normal">12dp</dimen>
+    <dimen name="spacing_large">16dp</dimen>
+    <dimen name="spacing_xlarge">32dp</dimen>
+
+    <!--Text sizes -->
+    <dimen name="title_size">18sp</dimen>
+    <dimen name="sub_heading_size">16sp</dimen>
+    <dimen name="body_size">14sp</dimen>
+    <dimen name="caption_size">12sp</dimen>
+    <dimen name="button_size">14sp</dimen>
+    <dimen name="icon_size">30sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+
+    <dimen name="stepper_icon_size">36dp</dimen>
+    <dimen name="home_menu_icon_size">56dp</dimen>
+</resources>

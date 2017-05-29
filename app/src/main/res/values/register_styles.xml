@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="RegisterEtStyle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:background">@drawable/bg_register_et</item>
+    <item name="android:padding">@dimen/spacing_medium</item>
+    <item name="android:textColorHint">@android:color/darker_gray</item>
+    <item name="android:textSize">@dimen/sub_heading_size</item>
+  </style>
+
+  <style name="RegisterLayoutStyle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginLeft">@dimen/spacing_xlarge</item>
+    <item name="android:layout_marginRight">@dimen/spacing_xlarge</item>
+    <item name="android:layout_marginTop">@dimen/spacing_medium</item>
+    <item name="android:layout_marginBottom">@dimen/spacing_medium</item>
+    <item name="android:orientation">horizontal</item>
+  </style>
+
+  <style name="RegisterIconStyle">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:padding">@dimen/spacing_medium</item>
+    <item name="android:background">@color/step_progress_bar_color</item>
+  </style>
+</resources>
