@@ -18,12 +18,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.gson.JsonObject;
 import com.soundcloud.android.crop.Crop;
 
 import org.w3c.dom.Text;
@@ -65,6 +67,8 @@ public class RegistrationActivity extends BaseActivity {
 
     private MasterData masterData;
 
+    private Button mBtSubmitButton;
+
     private static final String[] GENDER = new String[]{
             "Male", "Female"
     };
@@ -86,6 +90,7 @@ public class RegistrationActivity extends BaseActivity {
         // initialize view.
         initLayout();
 
+        // Fetch list of job details and qualification;
         fetchInformationForUI();
 
     }
@@ -110,6 +115,21 @@ public class RegistrationActivity extends BaseActivity {
 
         // ImageView
         mIvProfilePicture = (ImageView) findViewById(R.id.iv_profilePicture);
+        mIvProfilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOptionToChoosePicture();
+            }
+        });
+
+        //Button
+        mBtSubmitButton = (Button) findViewById(R.id.btn_register);
+        mBtSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitUserChanges();
+            }
+        });
 
         //TextView
         mTvChangePicture = (TextView) findViewById(R.id.tv_changePicture);
@@ -119,6 +139,99 @@ public class RegistrationActivity extends BaseActivity {
                 showOptionToChoosePicture();
             }
         });
+    }
+
+    /**
+     * This method helps to submit user changes
+     */
+    private void submitUserChanges() {
+        if (checkForEmptyFields()) {
+            UserInfo userInfo = new UserInfo();
+            userInfo.name = mEditTextFirstName.getText().toString() + " " + mEditTextLastName.getText().toString();
+            userInfo.gender = mAutoCompleteGender.getText().toString();
+            userInfo.phoneNumber = mEditTextPhoneNumber.getText().toString();
+            userInfo.emailId = mEditTextEmailAddress.getText().toString();
+            userInfo.jobType = mAutoCompleteJobType.getText().toString();
+            userInfo.address = mEditTextAddress.getText().toString();
+            userInfo.educaitonalQualification.add(mAutoCompleteQualifation.getText().toString());
+
+            if (userInfo != null) {
+                submitChanges(userInfo);
+            }
+
+        }
+    }
+
+    /**
+     * This method helps to submit the user info.
+     *
+     * @param userInfo
+     */
+    private void submitChanges(UserInfo userInfo) {
+        try {
+            ApiInterface apiService =
+                    ApiClient.getClient().create(ApiInterface.class);
+
+
+            Call<JsonObject> call = apiService.setUserInformation(userInfo);
+            call.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    showToast("Updated Successfully");
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    showToast("Update Failed");
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage().toString());
+        }
+    }
+
+    /**
+     * This method helps for empty field check.
+     */
+    private boolean checkForEmptyFields() {
+        boolean fieldCheck = false;
+        List<EditText> editTextFields = new ArrayList<>();
+        editTextFields.add(mEditTextFirstName);
+        editTextFields.add(mEditTextLastName);
+        editTextFields.add(mEditTextAddress);
+        editTextFields.add(mEditTextEmailAddress);
+        editTextFields.add(mEditTextPhoneNumber);
+
+        for (EditText editText : editTextFields) {
+            if (editText.getText().length() == 0) {
+                editText.setError("Please fill this field");
+                fieldCheck = true;
+            }
+        }
+
+        List<AutoCompleteTextView> autoCompleteTextView = new ArrayList<>();
+        autoCompleteTextView.add(mAutoCompleteGender);
+        autoCompleteTextView.add(mAutoCompleteJobType);
+        autoCompleteTextView.add(mAutoCompleteQualifation);
+
+        for (AutoCompleteTextView autoComplete : autoCompleteTextView) {
+            if (autoComplete.getText().length() == 0) {
+                autoComplete.setError("Please fill this field");
+                fieldCheck = true;
+            }
+        }
+
+        if (fieldCheck) {
+            fieldCheck = false;
+            return false;
+        }
+
+        if (bmProfilePicture == null) {
+            showToast("Please click your picture");
+            return false;
+        }
+
+        return true;
     }
 
     /**

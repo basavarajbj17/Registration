@@ -1,6 +1,9 @@
 package com.assign.registration;
 
+import com.google.gson.JsonObject;
+
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -13,6 +16,6 @@ public interface ApiInterface {
     @GET("getMasterData")
     Call<DisplayData> getMasterData();
 
-    /*@POST("profile")
-    Call<> setUserInformation()*/
+    @POST("profile")
+    Call<JsonObject> setUserInformation(@Body UserInfo userInfo);
 }

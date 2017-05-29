@@ -108,8 +108,7 @@
                         android:id="@+id/act_gender"
                         style="@style/RegisterEtStyle"
                         android:hint="Gender"
-                        android:inputType="textCapSentences"
-                        android:maxLength="10" />
+                        android:inputType="textCapSentences" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -117,12 +116,11 @@
                     style="@style/RegisterLayoutStyle"
                     android:layout_below="@id/gender_layout">
 
-
                     <EditText
                         android:id="@+id/et_phone_number"
                         style="@style/RegisterEtStyle"
                         android:hint="Phone Number"
-                        android:inputType="textPassword" />
+                        android:inputType="number" />
                 </LinearLayout>
 
                 <LinearLayout
