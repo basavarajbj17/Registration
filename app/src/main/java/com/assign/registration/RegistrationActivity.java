@@ -30,7 +30,13 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @author Raj
@@ -57,9 +63,17 @@ public class RegistrationActivity extends BaseActivity {
 
     private ImageView mIvProfilePicture;
 
+    private MasterData masterData;
+
     private static final String[] GENDER = new String[]{
             "Male", "Female"
     };
+
+    private static String[] JOBTYPE = new String[]{};
+    private static String[] QUALIFICATIONTYPE = new String[]{};
+
+    private List<String> listJobType = new ArrayList<>();
+    private List<String> listEducationQualifcation = new ArrayList<>();
 
 
     @Override
@@ -73,13 +87,6 @@ public class RegistrationActivity extends BaseActivity {
         initLayout();
 
         fetchInformationForUI();
-
-    }
-
-    /**
-     * This method helps to fetch the qualification type and other details.
-     */
-    private void fetchInformationForUI() {
 
     }
 
@@ -231,5 +238,72 @@ public class RegistrationActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * This method helps to fetch the qualification type and other details.
+     */
+    private void fetchInformationForUI() {
+
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+        try {
+
+            Call<DisplayData> call = apiService.getMasterData();
+            call.enqueue(new Callback<DisplayData>() {
+                @Override
+                public void onResponse(Call<DisplayData> call, Response<DisplayData> response) {
+                    if (response != null) {
+                        masterData = response.body().getMasterData();
+                        storeAndUpdateInfo(masterData);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DisplayData> call, Throwable t) {
+                    showToast("Sorry failed to pull information");
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage().toString());
+        }
+
+    }
+
+    /**
+     * This method allows to update the job and qualification details.
+     *
+     * @param masterData
+     */
+    private void storeAndUpdateInfo(MasterData masterData) {
+        int educationQualificationSize = masterData.getEducationalQualification().size();
+        if (educationQualificationSize != 0) {
+            for (int i = 0; i < educationQualificationSize; i++) {
+                listEducationQualifcation.add(masterData.getEducationalQualification().get(i).getQualification());
+            }
+        }
+
+        int jobTypeSize = masterData.getJobTypes().size();
+        if (jobTypeSize != 0) {
+            for (int i = 0; i < jobTypeSize; i++) {
+                listJobType.add(masterData.getJobTypes().get(i).getJobType());
+            }
+        }
+
+        if (!listEducationQualifcation.isEmpty()) {
+            QUALIFICATIONTYPE = listEducationQualifcation.toArray(new String[listEducationQualifcation.size()]);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, QUALIFICATIONTYPE);
+            mAutoCompleteQualifation.setAdapter(adapter);
+
+        }
+
+        if (!listJobType.isEmpty()) {
+            JOBTYPE = listJobType.toArray(new String[listJobType.size()]);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, JOBTYPE);
+            mAutoCompleteJobType.setAdapter(adapter);
+        }
     }
 }
